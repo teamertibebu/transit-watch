@@ -1,0 +1,12 @@
+{
+    "folders": [
+      {
+        "name": "Transit Watch API",
+        "path": "transit-watch-api"
+      },
+      {
+        "name": "Transit Watch Mobile",
+        "path": "transit-watch-mobile"
+      }
+    ]
+  }
