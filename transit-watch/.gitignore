@@ -35,3 +35,4 @@ transit_watch-*.tar
 npm-debug.log
 /assets/node_modules/
 
+/gtfs_data/
