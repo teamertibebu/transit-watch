@@ -32,8 +32,6 @@ defmodule TransitWatch.Stops.StopParser do
     parent_station =
       if row["parent_station"] == "", do: nil, else: String.to_integer(row["parent_station"])
 
-    IO.inspect(row["stop_id"], label: "row[stop_id]")
-
     %{
       gtfs_stop_id: String.to_integer(row["stop_id"]),
       code: row["stop_code"],

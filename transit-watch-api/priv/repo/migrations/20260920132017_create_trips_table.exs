@@ -10,6 +10,8 @@ defmodule TransitWatch.Repo.Migrations.CreateTripsTable do
       add :shape_dist_traveled, :float
     end
 
+    create unique_index(:shapes, [:gtfs_shape_id, :shape_pt_sequence])
+
     create table("trips") do
       add :gtfs_trip_id, :integer, null: false
       add :gtfs_route_id, :integer, null: false
