@@ -19,17 +19,8 @@ defmodule TransitWatch.ShapePoints.ShapePoint do
 
   def changeset(route, attrs) do
     route
-    |> cast(attrs, [
-      :lat,
-      :long,
-      :sequence,
-      :distance_traveled
-    ])
-    |> validate_required([
-      :lat,
-      :long,
-      :sequence
-    ])
+    |> cast(attrs, [:lat, :long, :sequence, :distance_traveled])
+    |> validate_required([:lat, :long, :sequence])
     |> unique_constraint([:shape_id, :sequence])
   end
 end

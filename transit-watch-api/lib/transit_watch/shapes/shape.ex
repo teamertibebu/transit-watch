@@ -22,8 +22,8 @@ defmodule TransitWatch.Shapes.Shape do
   schema "shapes" do
     field :gtfs_shape_id, :integer
 
-    has_many :trip, Trip
-    has_many :shape_point, ShapePoint
+    has_many :trips, Trip
+    has_many :shape_points, ShapePoint
   end
 
   def changeset(route, attrs) do

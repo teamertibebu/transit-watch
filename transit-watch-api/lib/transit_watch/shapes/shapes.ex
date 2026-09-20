@@ -12,7 +12,7 @@ defmodule TransitWatch.Shapes.Shapes do
     |> Repo.insert()
   end
 
-  def insert_all(attrs), do: Repo.insert_all(Shape, attrs)
+  def insert_all(attrs, opts), do: Repo.insert_all(Shape, attrs, opts)
 
   def list_all, do: Repo.all(Shape)
 end
