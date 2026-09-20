@@ -16,29 +16,20 @@ defmodule TransitWatch.Shapes.Shape do
 
   import Ecto.Changeset
 
+  alias TransitWatch.Trips.Trip
+  alias TransitWatch.ShapePoints.ShapePoint
+
   schema "shapes" do
     field :gtfs_shape_id, :integer
-    field :shape_pt_lat, :float
-    field :shape_pt_lon, :float
-    field :shape_pt_sequence, :integer
-    field :shape_dist_traveled, :float
+
+    has_many :trip, Trip
+    has_many :shape_point, ShapePoint
   end
 
   def changeset(route, attrs) do
     route
-    |> cast(attrs, [
-      :gtfs_shape_id,
-      :shape_pt_lat,
-      :shape_pt_lon,
-      :shape_pt_sequence,
-      :shape_dist_traveled
-    ])
-    |> validate_required([
-      :gtfs_shape_id,
-      :shape_pt_lat,
-      :shape_pt_lon,
-      :shape_pt_sequence
-    ])
-    |> unique_constraint([:gtfs_shape_id, :shape_pt_sequence])
+    |> cast(attrs, [:gtfs_shape_id])
+    |> validate_required([:gtfs_shape_id])
+    |> unique_constraint([:gtfs_shape_id])
   end
 end

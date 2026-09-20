@@ -4,13 +4,18 @@ defmodule TransitWatch.Repo.Migrations.CreateTripsTable do
   def change do
     create table("shapes") do
       add :gtfs_shape_id, :integer, null: false
-      add :shape_pt_lat, :float, null: false
-      add :shape_pt_lon, :float, null: false
-      add :shape_pt_sequence, :integer, null: false
-      add :shape_dist_traveled, :float
     end
 
-    create unique_index(:shapes, [:gtfs_shape_id, :shape_pt_sequence])
+    create table("shape_points") do
+      add :lat, :float, null: false
+      add :long, :float, null: false
+      add :sequence, :integer, null: false
+      add :distance_traveled, :float
+      add :shape_id, references("shapes")
+    end
+
+    create unique_index(:shapes, [:gtfs_shape_id])
+    create unique_index(:shape_points, [:shape_id, :sequence])
 
     create table("trips") do
       add :gtfs_trip_id, :integer, null: false

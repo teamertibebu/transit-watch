@@ -11,6 +11,7 @@ defmodule TransitWatch.Routes.Route do
 
   alias TransitWatch.Agencies.Agency
   alias TransitWatch.TransportModes.TransportMode
+  alias TransitWatch.Trips.Trip
 
   schema "routes" do
     field :gtfs_route_id, :integer
@@ -23,6 +24,8 @@ defmodule TransitWatch.Routes.Route do
 
     belongs_to :agency, Agency
     belongs_to :transport_mode, TransportMode
+
+    has_many :trip, Trip
 
     timestamps(type: :utc_datetime_usec)
   end
