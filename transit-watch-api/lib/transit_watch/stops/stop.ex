@@ -13,15 +13,15 @@ defmodule TransitWatch.Stops.Stop do
   alias TransitWatch.LocationTypes.LocationType
 
   schema "stops" do
-    field :gtfs_stop_id, :string
+    field :gtfs_stop_id, :integer
     field :code, :string
     field :name, :string
     field :desc, :string
     field :lat, :float
     field :long, :float
     field :url, :string
-    field :parent_station, :string
-    field :wheelchair_boarding, :string
+    field :parent_station, :integer
+    field :wheelchair_boarding, :integer
 
     belongs_to :location_type, LocationType
 

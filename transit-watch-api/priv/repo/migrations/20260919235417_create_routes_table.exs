@@ -3,13 +3,11 @@ defmodule TransitWatch.Repo.Migrations.CreateRoutesTable do
 
   def change do
     create table(:routes) do
-      add :gtfs_route_id, :string, null: false
+      add :gtfs_route_id, :integer, null: false
       add :agency_id, references("agencies")
       add :route_short_name, :string
       add :route_long_name, :string
       add :route_desc, :text
-      add :route_type, :string, null: false
-      add :route_type_desc, :text, null: false
       add :route_url, :string
       add :route_color, :string
       add :route_text_color, :string

@@ -23,10 +23,12 @@ defmodule TransitWatch.Routes.RouteParser do
   end
 
   defp to_route_attrs(row, agencies, transport_modes, now) do
+    gtfs_route_type = String.to_integer(row["route_type"])
+
     %{
-      gtfs_route_id: row["route_id"],
+      gtfs_route_id: String.to_integer(row["route_id"]),
       agency_id: Map.fetch!(agencies, row["agency_id"]),
-      transport_mode_id: Map.fetch!(transport_modes, row["route_type"]),
+      transport_mode_id: Map.fetch!(transport_modes, gtfs_route_type),
       route_short_name: row["route_short_name"],
       route_long_name: row["route_long_name"],
       route_desc: row["route_desc"],

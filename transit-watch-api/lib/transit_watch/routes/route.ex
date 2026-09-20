@@ -13,18 +13,15 @@ defmodule TransitWatch.Routes.Route do
   alias TransitWatch.TransportModes.TransportMode
 
   schema "routes" do
-    field :gtfs_route_id, :string
-    field :agency_id, :integer
+    field :gtfs_route_id, :integer
     field :route_short_name, :string
     field :route_long_name, :string
     field :route_desc, :string
-    field :route_type, :string
-    field :route_type_desc, :string
     field :route_url, :string
     field :route_color, :string
     field :route_text_color, :string
 
-    belongs_to :agencies, Agency
+    belongs_to :agency, Agency
     belongs_to :transport_mode, TransportMode
 
     timestamps(type: :utc_datetime_usec)
@@ -35,11 +32,10 @@ defmodule TransitWatch.Routes.Route do
     |> cast(attrs, [
       :gtfs_route_id,
       :agency_id,
+      :transport_mode_id,
       :route_short_name,
       :route_long_name,
       :route_desc,
-      :route_type,
-      :route_type_desc,
       :route_url,
       :route_color,
       :route_text_color

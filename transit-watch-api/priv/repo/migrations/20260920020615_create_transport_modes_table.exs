@@ -3,7 +3,7 @@ defmodule TransitWatch.Repo.Migrations.CreateTransportModesTable do
 
   def change do
     create table(:transport_modes) do
-      add(:gtfs_route_type, :string)
+      add(:gtfs_route_type, :integer)
       add(:mode, :string)
       add(:description, :string)
 

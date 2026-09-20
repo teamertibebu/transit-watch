@@ -26,18 +26,24 @@ defmodule TransitWatch.Stops.StopParser do
 
     ## The GTFS specification allows for location_type to be set to either 0 or
     ## left empty when type is Stop/Platform.
-    gtfs_location_type = if row["location_type"] == "", do: "0", else: row["location_type"]
+    gtfs_location_type =
+      if row["location_type"] == "", do: 0, else: String.to_integer(row["location_type"])
+
+    parent_station =
+      if row["parent_station"] == "", do: nil, else: String.to_integer(row["parent_station"])
+
+    IO.inspect(row["stop_id"], label: "row[stop_id]")
 
     %{
-      gtfs_stop_id: row["stop_id"],
+      gtfs_stop_id: String.to_integer(row["stop_id"]),
       code: row["stop_code"],
       name: row["stop_name"],
       desc: row["stop_desc"],
       lat: String.to_float(row["stop_lat"]),
       long: String.to_float(row["stop_lon"]),
       url: row["stop_url"],
-      parent_station: row["parent_station"],
-      wheelchair_boarding: row["wheelchair_boarding"],
+      parent_station: parent_station,
+      wheelchair_boarding: String.to_integer(row["wheelchair_boarding"]),
       location_type_id: Map.get(location_types, gtfs_location_type),
       inserted_at: now,
       updated_at: now

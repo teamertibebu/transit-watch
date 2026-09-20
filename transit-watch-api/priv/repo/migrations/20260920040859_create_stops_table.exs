@@ -3,21 +3,21 @@ defmodule TransitWatch.Repo.Migrations.CreateStopsTable do
 
   def change do
     create table("location_types") do
-      add :gtfs_locaton_type, :string
+      add :gtfs_locaton_type, :integer
       add :name, :string
       add :desc, :string
     end
 
     create table("stops") do
-      add :gtfs_stop_id, :string
+      add :gtfs_stop_id, :integer
       add :code, :string
       add :name, :string
       add :desc, :string
       add :lat, :float
       add :long, :float
       add :url, :string
-      add :parent_station, :string
-      add :wheelchair_boarding, :string
+      add :parent_station, :integer
+      add :wheelchair_boarding, :integer
       add :location_type_id, references("location_types")
 
       timestamps(type: :utc_datetime_usec)

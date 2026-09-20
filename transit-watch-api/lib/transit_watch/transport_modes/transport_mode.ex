@@ -6,7 +6,7 @@ defmodule TransitWatch.TransportModes.TransportMode do
   alias TransitWatch.Routes.Route
 
   schema "transport_modes" do
-    field :gtfs_route_type, :string
+    field :gtfs_route_type, :integer
     field :mode, :string
     field :description, :string
 
