@@ -1,6 +1,8 @@
 defmodule TransitWatch.Routes.Route do
   @moduledoc """
-  A module for working with transit routes.
+  Schema definition for Routes.
+
+  A route is a group of trips that are displayed to riders as a single service.
   """
 
   use Ecto.Schema

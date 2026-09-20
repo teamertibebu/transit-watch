@@ -1,6 +1,8 @@
 defmodule TransitWatch.Agencies.Agency do
   @moduledoc """
-  A module for working with transit agencies.
+  Schema definition for Agencies.
+
+  Transit agencies with service represented in the dataset.
   """
 
   use Ecto.Schema
