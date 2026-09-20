@@ -12,7 +12,13 @@ defmodule TransitWatch.Agencies.Agencies do
     |> Repo.insert()
   end
 
-  def insert_all(attrs) do
-    Repo.insert_all(Agency, attrs)
+  def insert_all(attrs), do: Repo.insert_all(Agency, attrs)
+
+  def get_by(opts) do
+    gtfs_agency_id = Keyword.get(opts, :gtfs_agency_id)
+
+    Agency
+    |> Agency.filter(:gtfs_agency_id, gtfs_agency_id)
+    |> Repo.one()
   end
 end

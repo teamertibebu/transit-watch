@@ -3,15 +3,17 @@ defmodule TransitWatch.Repo.Migrations.CreateAgenciesTable do
 
   def change do
     create table(:agencies) do
-      add :short_name, :string, null: false
-      add :long_name, :string, null: false
+      add :gtfs_agency_id, :string, null: false
+      add :name, :string, null: false
       add :main_url, :string, null: false
       add :fare_url, :string, null: false
       add :timezone, :string, null: false
       add :phone, :string, null: false
+
+      timestamps(type: :utc_datetime_usec)
     end
 
-    create unique_index(:agencies, [:short_name])
-    create unique_index(:agencies, [:long_name])
+    create unique_index(:agencies, [:gtfs_agency_id])
+    create unique_index(:agencies, [:name])
   end
 end
