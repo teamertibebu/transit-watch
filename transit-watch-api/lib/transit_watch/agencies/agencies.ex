@@ -21,4 +21,6 @@ defmodule TransitWatch.Agencies.Agencies do
     |> Agency.filter(:gtfs_agency_id, gtfs_agency_id)
     |> Repo.one()
   end
+
+  def list_all, do: Repo.all(Agency)
 end

@@ -1,6 +1,6 @@
 defmodule TransitWatch.Routes.RouteParser do
   @moduledoc """
-  A module for parsing route information from GTFS feeds.
+  Parses GTFS Route data, sets necessary associations, and persists.
   """
 
   alias TransitWatch.Routes.Routes
@@ -10,50 +10,41 @@ defmodule TransitWatch.Routes.RouteParser do
   def parse(file_path) do
     now = DateTime.truncate(DateTime.utc_now(), :microsecond)
 
-    File.stream!(file_path)
+    agencies = list_agencies()
+    transport_modes = list_transport_modes()
+
+    file_path
+    |> File.stream!()
     |> CSV.decode(headers: true)
     |> Enum.map(fn {:ok, row} ->
-      %{
-        gtfs_route_id: row["route_id"],
-        gtfs_agency_id: row["agency_id"],
-        route_short_name: row["route_short_name"],
-        route_long_name: row["route_long_name"],
-        route_desc: row["route_desc"],
-        route_type: row["route_type"],
-        route_url: row["route_url"],
-        route_color: row["route_color"],
-        route_text_color: row["route_text_color"],
-        inserted_at: now,
-        updated_at: now
-      }
+      to_route_attrs(row, agencies, transport_modes, now)
     end)
-    |> find_agency
-    |> find_transport_mode
     |> Routes.insert_all()
   end
 
-  defp find_agency(route_maps) do
-    Enum.map(route_maps, fn route ->
-      gtfs_agency_id = Map.get(route, :gtfs_agency_id)
-
-      agency = Agencies.get_by(gtfs_agency_id: gtfs_agency_id)
-
-      route
-      |> Map.put(:agency_id, agency.id)
-      |> Map.delete(:gtfs_agency_id)
-    end)
+  defp to_route_attrs(row, agencies, transport_modes, now) do
+    %{
+      gtfs_route_id: row["route_id"],
+      agency_id: Map.fetch!(agencies, row["agency_id"]),
+      transport_mode_id: Map.fetch!(transport_modes, row["route_type"]),
+      route_short_name: row["route_short_name"],
+      route_long_name: row["route_long_name"],
+      route_desc: row["route_desc"],
+      route_url: row["route_url"],
+      route_color: row["route_color"],
+      route_text_color: row["route_text_color"],
+      inserted_at: now,
+      updated_at: now
+    }
   end
 
-  defp find_transport_mode(route_maps) do
-    Enum.map(route_maps, fn route ->
-      route_type = Map.get(route, :route_type)
+  defp list_agencies do
+    Agencies.list_all()
+    |> Map.new(fn agency -> {agency.gtfs_agency_id, agency.id} end)
+  end
 
-      transport_mode = TransportModes.get_by(gtfs_route_type: route_type)
-      IO.inspect(transport_mode, label: "TRANSPORT MODE")
-
-      route
-      |> Map.put(:transport_mode_id, transport_mode.id)
-      |> Map.delete(:route_type)
-    end)
+  defp list_transport_modes do
+    TransportModes.list_all()
+    |> Map.new(fn mode -> {mode.gtfs_route_type, mode.id} end)
   end
 end

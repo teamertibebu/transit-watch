@@ -10,10 +10,11 @@ defmodule TransitWatch.TransportModes.TransportModes do
 
   def get_by(opts) do
     gtfs_route_type = Keyword.get(opts, :gtfs_route_type)
-    IO.inspect(gtfs_route_type, label: "lkajdflkasdjf")
 
     TransportMode
     |> TransportMode.filter(:gtfs_route_type, gtfs_route_type)
     |> Repo.one()
   end
+
+  def list_all, do: Repo.all(TransportMode)
 end
