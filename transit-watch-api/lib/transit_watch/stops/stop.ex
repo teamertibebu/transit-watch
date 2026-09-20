@@ -19,7 +19,7 @@ defmodule TransitWatch.Stops.Stop do
     field :desc, :string
     field :lat, :float
     field :long, :float
-    field :stop_url, :string
+    field :url, :string
     field :parent_station, :string
     field :wheelchair_boarding, :string
 

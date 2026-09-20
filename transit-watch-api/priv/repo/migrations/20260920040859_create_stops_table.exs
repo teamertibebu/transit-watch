@@ -15,7 +15,7 @@ defmodule TransitWatch.Repo.Migrations.CreateStopsTable do
       add :desc, :string
       add :lat, :float
       add :long, :float
-      add :stop_url, :string
+      add :url, :string
       add :parent_station, :string
       add :wheelchair_boarding, :string
       add :location_type_id, references("location_types")
