@@ -3,8 +3,8 @@ defmodule TransitWatch.Shapes.Shapes do
   Context module for interacting with Shapes.
   """
 
-  alias TransitWatch.Shapes.Shape
   alias TransitWatch.Repo
+  alias TransitWatch.Shapes.Shape
 
   def insert(attrs) do
     %Shape{}

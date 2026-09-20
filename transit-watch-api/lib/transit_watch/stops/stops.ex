@@ -3,8 +3,8 @@ defmodule TransitWatch.Stops.Stops do
   Context module for interacting with Stops.
   """
 
-  alias TransitWatch.Stops.Stop
   alias TransitWatch.Repo
+  alias TransitWatch.Stops.Stop
 
   def insert(attrs) do
     %Stop{}

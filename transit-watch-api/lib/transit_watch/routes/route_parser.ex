@@ -3,8 +3,8 @@ defmodule TransitWatch.Routes.RouteParser do
   Parses GTFS Route data, sets necessary associations, and persists.
   """
 
-  alias TransitWatch.Routes.Routes
   alias TransitWatch.Agencies.Agencies
+  alias TransitWatch.Routes.Routes
   alias TransitWatch.TransportModes.TransportModes
 
   def parse(file_path) do

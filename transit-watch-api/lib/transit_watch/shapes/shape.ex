@@ -16,8 +16,8 @@ defmodule TransitWatch.Shapes.Shape do
 
   import Ecto.Changeset
 
-  alias TransitWatch.Trips.Trip
   alias TransitWatch.ShapePoints.ShapePoint
+  alias TransitWatch.Trips.Trip
 
   schema "shapes" do
     field :gtfs_shape_id, :integer

@@ -3,8 +3,8 @@ defmodule TransitWatch.Routes.Routes do
   A module for managing transit routes.
   """
 
-  alias TransitWatch.Routes.Route
   alias TransitWatch.Repo
+  alias TransitWatch.Routes.Route
 
   def insert(attrs) do
     %Route{}

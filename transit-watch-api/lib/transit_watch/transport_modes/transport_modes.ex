@@ -1,6 +1,6 @@
 defmodule TransitWatch.TransportModes.TransportModes do
   @moduledoc """
-
+    Conext for interacting with Transport Modes.
   """
 
   alias TransitWatch.Repo

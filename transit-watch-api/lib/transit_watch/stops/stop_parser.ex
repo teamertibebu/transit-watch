@@ -3,8 +3,8 @@ defmodule TransitWatch.Stops.StopParser do
   A module for parsing Stop information from GTFS feeds.
   """
 
-  alias TransitWatch.Stops.Stops
   alias TransitWatch.LocationTypes.LocationTypes
+  alias TransitWatch.Stops.Stops
 
   def parse(file_path) do
     now = DateTime.truncate(DateTime.utc_now(), :microsecond)
