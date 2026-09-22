@@ -3,7 +3,7 @@ defmodule TransitWatch.GTFS.TransportMode do
 
   import Ecto.Query
 
-  alias TransitWatch.Routes.Route
+  alias TransitWatch.GTFS.Route
 
   schema "transport_modes" do
     field :gtfs_route_type, :integer

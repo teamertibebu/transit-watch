@@ -7,8 +7,8 @@ defmodule TransitWatch.GTFS.Trip do
 
   import Ecto.Changeset
 
-  alias TransitWatch.Routes.Route
-  alias TransitWatch.Shapes.Shape
+  alias TransitWatch.GTFS.Route
+  alias TransitWatch.GTFS.Shape
 
   schema "trips" do
     field :gtfs_trip_id, :integer
