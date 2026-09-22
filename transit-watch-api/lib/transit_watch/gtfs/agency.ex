@@ -12,7 +12,7 @@ defmodule TransitWatch.GTFS.Agency do
 
   alias TransitWatch.GTFS.Route
 
-  schema "agencies" do
+  schema "gtfs_agencies" do
     field :gtfs_agency_id, :string
     field :name, :string
     field :main_url, :string

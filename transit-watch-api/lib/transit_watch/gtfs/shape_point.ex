@@ -8,7 +8,7 @@ defmodule TransitWatch.GTFS.ShapePoint do
 
   alias TransitWatch.GTFS.Shape
 
-  schema "shape_points" do
+  schema "gtfs_shape_points" do
     field :lat, :float
     field :long, :float
     field :sequence, :integer

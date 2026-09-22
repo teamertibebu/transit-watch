@@ -10,7 +10,7 @@ defmodule TransitWatch.GTFS.Trip do
   alias TransitWatch.GTFS.Route
   alias TransitWatch.GTFS.Shape
 
-  schema "trips" do
+  schema "gtfs_trips" do
     field :gtfs_trip_id, :integer
     field :gtfs_service_id, :integer
     field :trip_headsign, :string

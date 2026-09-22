@@ -9,7 +9,7 @@ defmodule TransitWatch.GTFS.LocationType do
 
   alias TransitWatch.GTFS.Stop
 
-  schema "location_types" do
+  schema "gtfs_location_types" do
     field :gtfs_locaton_type, :integer
     field :name, :string
     field :desc, :string

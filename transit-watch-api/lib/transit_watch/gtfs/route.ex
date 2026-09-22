@@ -13,7 +13,7 @@ defmodule TransitWatch.GTFS.Route do
   alias TransitWatch.GTFS.TransportMode
   alias TransitWatch.GTFS.Trip
 
-  schema "routes" do
+  schema "gtfs_routes" do
     field :gtfs_route_id, :integer
     field :route_short_name, :string
     field :route_long_name, :string

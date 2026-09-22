@@ -19,7 +19,7 @@ defmodule TransitWatch.GTFS.Shape do
   alias TransitWatch.GTFS.ShapePoint
   alias TransitWatch.GTFS.Trip
 
-  schema "shapes" do
+  schema "gtfs_shapes" do
     field :gtfs_shape_id, :integer
 
     has_many :trips, Trip
