@@ -1,4 +1,4 @@
-defmodule TransitWatch.Shapes.Shape do
+defmodule TransitWatch.GTFS.Shape do
   @moduledoc """
   Schema definition for Shapes.
 
@@ -16,8 +16,8 @@ defmodule TransitWatch.Shapes.Shape do
 
   import Ecto.Changeset
 
-  alias TransitWatch.ShapePoints.ShapePoint
-  alias TransitWatch.Trips.Trip
+  alias TransitWatch.GTFS.ShapePoint
+  alias TransitWatch.GTFS.Trip
 
   schema "shapes" do
     field :gtfs_shape_id, :integer

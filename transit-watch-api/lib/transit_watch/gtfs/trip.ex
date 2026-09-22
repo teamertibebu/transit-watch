@@ -1,4 +1,4 @@
-defmodule TransitWatch.Trips.Trip do
+defmodule TransitWatch.GTFS.Trip do
   @moduledoc """
   Schema definition for Trips.
   """

@@ -1,4 +1,4 @@
-defmodule TransitWatch.TransportModes.TransportMode do
+defmodule TransitWatch.GTFS.TransportMode do
   use Ecto.Schema
 
   import Ecto.Query

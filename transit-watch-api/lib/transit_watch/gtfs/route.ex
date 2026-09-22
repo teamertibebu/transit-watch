@@ -1,4 +1,4 @@
-defmodule TransitWatch.Routes.Route do
+defmodule TransitWatch.GTFS.Route do
   @moduledoc """
   Schema definition for Routes.
 
@@ -9,9 +9,9 @@ defmodule TransitWatch.Routes.Route do
 
   import Ecto.Changeset
 
-  alias TransitWatch.Agencies.Agency
-  alias TransitWatch.TransportModes.TransportMode
-  alias TransitWatch.Trips.Trip
+  alias TransitWatch.GTFS.Agency
+  alias TransitWatch.GTFS.TransportMode
+  alias TransitWatch.GTFS.Trip
 
   schema "routes" do
     field :gtfs_route_id, :integer

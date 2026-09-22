@@ -1,11 +1,11 @@
-defmodule TransitWatch.Agencies.AgencyParser do
+defmodule TransitWatch.GTFS.Importers.AgencyImporter do
   @moduledoc """
   A module for parsing basic agency information from GTFS feeds.
   """
 
-  alias TransitWatch.Agencies.Agencies
+  alias TransitWatch.GTFS
 
-  def parse(file_path) do
+  def import(file_path) do
     now = DateTime.truncate(DateTime.utc_now(), :microsecond)
 
     File.stream!(file_path)
@@ -22,6 +22,6 @@ defmodule TransitWatch.Agencies.AgencyParser do
         updated_at: now
       }
     end)
-    |> Agencies.insert_all()
+    |> GTFS.insert_all_agencies()
   end
 end

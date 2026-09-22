@@ -1,4 +1,4 @@
-defmodule TransitWatch.ShapePoints.ShapePoint do
+defmodule TransitWatch.GTFS.ShapePoint do
   @moduledoc """
   """
 
@@ -6,7 +6,7 @@ defmodule TransitWatch.ShapePoints.ShapePoint do
 
   import Ecto.Changeset
 
-  alias TransitWatch.Shapes.Shape
+  alias TransitWatch.GTFS.Shape
 
   schema "shape_points" do
     field :lat, :float

@@ -1,4 +1,4 @@
-defmodule TransitWatch.Agencies.Agency do
+defmodule TransitWatch.GTFS.Agency do
   @moduledoc """
   Schema definition for Agencies.
 
@@ -10,7 +10,7 @@ defmodule TransitWatch.Agencies.Agency do
   import Ecto.Changeset
   import Ecto.Query
 
-  alias TransitWatch.Routes.Route
+  alias TransitWatch.GTFS.Route
 
   schema "agencies" do
     field :gtfs_agency_id, :string

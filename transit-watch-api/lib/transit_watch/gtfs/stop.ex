@@ -1,4 +1,4 @@
-defmodule TransitWatch.Stops.Stop do
+defmodule TransitWatch.GTFS.Stop do
   @moduledoc """
   Schema definition for Stops.
 
@@ -10,7 +10,7 @@ defmodule TransitWatch.Stops.Stop do
 
   import Ecto.Changeset
 
-  alias TransitWatch.LocationTypes.LocationType
+  alias TransitWatch.GTFS.LocationType
 
   schema "stops" do
     field :gtfs_stop_id, :integer

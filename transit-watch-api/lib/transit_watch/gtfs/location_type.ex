@@ -1,4 +1,4 @@
-defmodule TransitWatch.LocationTypes.LocationType do
+defmodule TransitWatch.GTFS.LocationType do
   @moduledoc """
   Schema definition for Location Types. Can be one of: Stop/Platform, Station, Entrance/Exit, Generic Node, or Boarding Area
   """
@@ -7,7 +7,7 @@ defmodule TransitWatch.LocationTypes.LocationType do
 
   import Ecto.Changeset
 
-  alias TransitWatch.Stops.Stop
+  alias TransitWatch.GTFS.Stop
 
   schema "location_types" do
     field :gtfs_locaton_type, :integer

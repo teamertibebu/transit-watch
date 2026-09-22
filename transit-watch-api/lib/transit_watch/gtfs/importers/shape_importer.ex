@@ -1,11 +1,10 @@
-defmodule TransitWatch.Shapes.ShapeParser do
+defmodule TransitWatch.GTFS.Importers.ShapeImporter do
   @moduledoc """
   A module for parsing Shape information from GTFS feeds.
   Rules for mapping vehicle travel paths, sometimes referred to as route alignments.
   """
 
-  alias TransitWatch.ShapePoints.ShapePoints
-  alias TransitWatch.Shapes.Shapes
+  alias TransitWatch.GTFS
 
   ## TODO: Entire module need to be optimization and cleaned up.
 
@@ -24,7 +23,7 @@ defmodule TransitWatch.Shapes.ShapeParser do
         %{gtfs_shape_id: String.to_integer(id)}
       end)
 
-    {_, shapes_list} = Shapes.insert_all(shape_attrs, returning: [:id, :gtfs_shape_id])
+    {_, shapes_list} = GTFS.insert_all_shapes(shape_attrs, returning: [:id, :gtfs_shape_id])
 
     shapes_list
   end
@@ -42,7 +41,7 @@ defmodule TransitWatch.Shapes.ShapeParser do
     end)
     |> Enum.chunk_every(1_000)
     |> Enum.each(fn shape_point_batch ->
-      ShapePoints.insert_all(shape_point_batch)
+      GTFS.insert_all_shape_points(shape_point_batch)
     end)
   end
 

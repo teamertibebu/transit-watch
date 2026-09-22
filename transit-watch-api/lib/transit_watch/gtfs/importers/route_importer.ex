@@ -1,13 +1,11 @@
-defmodule TransitWatch.Routes.RouteParser do
+defmodule TransitWatch.GTFS.Importers.RouteImporter do
   @moduledoc """
   Parses GTFS Route data, sets necessary associations, and persists.
   """
 
-  alias TransitWatch.Agencies.Agencies
-  alias TransitWatch.Routes.Routes
-  alias TransitWatch.TransportModes.TransportModes
+  alias TransitWatch.GTFS
 
-  def parse(file_path) do
+  def import(file_path) do
     now = DateTime.truncate(DateTime.utc_now(), :microsecond)
 
     agencies = list_agencies()
@@ -19,7 +17,7 @@ defmodule TransitWatch.Routes.RouteParser do
     |> Enum.map(fn {:ok, row} ->
       to_route_attrs(row, agencies, transport_modes, now)
     end)
-    |> Routes.insert_all()
+    |> GTFS.insert_all_routes()
   end
 
   defp to_route_attrs(row, agencies, transport_modes, now) do
@@ -41,12 +39,12 @@ defmodule TransitWatch.Routes.RouteParser do
   end
 
   defp list_agencies do
-    Agencies.list_all()
+    GTFS.list_agencies()
     |> Map.new(fn agency -> {agency.gtfs_agency_id, agency.id} end)
   end
 
   defp list_transport_modes do
-    TransportModes.list_all()
+    GTFS.list_transport_modes()
     |> Map.new(fn mode -> {mode.gtfs_route_type, mode.id} end)
   end
 end
