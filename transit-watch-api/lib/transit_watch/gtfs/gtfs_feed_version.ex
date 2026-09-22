@@ -1,4 +1,4 @@
-defmodule TransitWatch.GTFS.GtfsFeedVersion do
+defmodule TransitWatch.GTFS.FeedVersion do
   use Ecto.Schema
 
   import Ecto.Changeset
@@ -17,6 +17,8 @@ defmodule TransitWatch.GTFS.GtfsFeedVersion do
     field :status, Ecto.Enum,
       values: [:pending, :importing, :active, :archived],
       default: :pending
+
+    many_to_many :agencies, TransitWatch.GTFS.Agency, join_through: "gtfs_feed_versions_agencies"
 
     timestamps(type: :utc_datetime_usec)
   end
