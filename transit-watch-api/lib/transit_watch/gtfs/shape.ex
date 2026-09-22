@@ -16,11 +16,14 @@ defmodule TransitWatch.GTFS.Shape do
 
   import Ecto.Changeset
 
+  alias TransitWatch.GTFS.FeedVersion
   alias TransitWatch.GTFS.ShapePoint
   alias TransitWatch.GTFS.Trip
 
   schema "gtfs_shapes" do
     field :gtfs_shape_id, :integer
+
+    belongs_to :gtfs_feed_version, FeedVersion
 
     has_many :trips, Trip
     has_many :shape_points, ShapePoint

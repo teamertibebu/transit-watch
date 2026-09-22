@@ -10,6 +10,7 @@ defmodule TransitWatch.GTFS.Agency do
   import Ecto.Changeset
   import Ecto.Query
 
+  alias TransitWatch.GTFS.FeedVersion
   alias TransitWatch.GTFS.Route
 
   schema "gtfs_agencies" do
@@ -20,10 +21,11 @@ defmodule TransitWatch.GTFS.Agency do
     field :timezone, :string
     field :phone, :string
 
+    belongs_to :gtfs_feed_version, FeedVersion
+
     has_many :routes, Route
 
-    many_to_many :feed_versions, TransitWatch.GTFS.FeedVersion,
-      join_through: "gtfs_feed_versions_agencies"
+    many_to_many :feed_versions, FeedVersion, join_through: "gtfs_feed_versions_agencies"
 
     timestamps(type: :utc_datetime_usec)
   end

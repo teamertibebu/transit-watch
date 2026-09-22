@@ -10,6 +10,7 @@ defmodule TransitWatch.GTFS.Route do
   import Ecto.Changeset
 
   alias TransitWatch.GTFS.Agency
+  alias TransitWatch.GTFS.FeedVersion
   alias TransitWatch.GTFS.TransportMode
   alias TransitWatch.GTFS.Trip
 
@@ -23,6 +24,7 @@ defmodule TransitWatch.GTFS.Route do
     field :route_text_color, :string
 
     belongs_to :agency, Agency
+    belongs_to :gtfs_feed_version, FeedVersion
     belongs_to :transport_mode, TransportMode
 
     has_many :trip, Trip

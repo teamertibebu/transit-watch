@@ -7,6 +7,7 @@ defmodule TransitWatch.GTFS.Trip do
 
   import Ecto.Changeset
 
+  alias TransitWatch.GTFS.FeedVersion
   alias TransitWatch.GTFS.Route
   alias TransitWatch.GTFS.Shape
 
@@ -20,6 +21,7 @@ defmodule TransitWatch.GTFS.Trip do
     field :wheelchair_accessible, :integer
     field :bikes_allowed, :integer
 
+    belongs_to :gtfs_feed_version, FeedVersion
     belongs_to :route, Route
     belongs_to :shape, Shape
   end

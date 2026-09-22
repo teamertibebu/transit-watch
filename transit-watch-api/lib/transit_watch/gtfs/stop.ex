@@ -10,6 +10,7 @@ defmodule TransitWatch.GTFS.Stop do
 
   import Ecto.Changeset
 
+  alias TransitWatch.GTFS.FeedVersion
   alias TransitWatch.GTFS.LocationType
 
   schema "gtfs_stops" do
@@ -24,6 +25,7 @@ defmodule TransitWatch.GTFS.Stop do
     field :wheelchair_boarding, :integer
 
     belongs_to :location_type, LocationType
+    belongs_to :gtfs_feed_version, FeedVersion
 
     timestamps(type: :utc_datetime_usec)
   end
