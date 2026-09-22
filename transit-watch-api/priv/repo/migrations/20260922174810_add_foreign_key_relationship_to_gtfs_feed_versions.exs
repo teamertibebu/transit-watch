@@ -2,9 +2,6 @@ defmodule TransitWatch.Repo.Migrations.AddForeignKeyRelationshipToGtfsFeedVersio
   use Ecto.Migration
 
   def change do
-    alter table("gtfs_agencies"),
-      do: add(:gtfs_feed_version_id, references("gtfs_feed_versions"))
-
     alter table("gtfs_routes"),
       do: add(:gtfs_feed_version_id, references("gtfs_feed_versions"))
 

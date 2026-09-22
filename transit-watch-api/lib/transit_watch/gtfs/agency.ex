@@ -21,8 +21,6 @@ defmodule TransitWatch.GTFS.Agency do
     field :timezone, :string
     field :phone, :string
 
-    belongs_to :gtfs_feed_version, FeedVersion
-
     has_many :routes, Route
 
     many_to_many :feed_versions, FeedVersion, join_through: "gtfs_feed_versions_agencies"
