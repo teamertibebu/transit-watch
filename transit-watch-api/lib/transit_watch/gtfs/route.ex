@@ -16,12 +16,12 @@ defmodule TransitWatch.GTFS.Route do
 
   schema "gtfs_routes" do
     field :gtfs_route_id, :integer
-    field :route_short_name, :string
-    field :route_long_name, :string
-    field :route_desc, :string
-    field :route_url, :string
-    field :route_color, :string
-    field :route_text_color, :string
+    field :short_name, :string
+    field :long_name, :string
+    field :description, :string
+    field :url, :string
+    field :designated_color, :string
+    field :designated_text_color, :string
 
     belongs_to :agency, Agency
     belongs_to :gtfs_feed_version, FeedVersion
@@ -38,15 +38,15 @@ defmodule TransitWatch.GTFS.Route do
       :gtfs_route_id,
       :agency_id,
       :transport_mode_id,
-      :route_short_name,
-      :route_long_name,
-      :route_desc,
-      :route_url,
-      :route_color,
-      :route_text_color
+      :gtfs_feed_version_id,
+      :short_name,
+      :long_name,
+      :description,
+      :url,
+      :designated_color,
+      :designated_text_color
     ])
-    |> validate_required([:gtfs_route_id, :route_type, :route_type_desc])
+    |> validate_required([:gtfs_route_id])
     |> unique_constraint(:gtfs_route_id)
-    |> unique_constraint(:name)
   end
 end
