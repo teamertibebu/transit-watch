@@ -8,5 +8,7 @@ defmodule TransitWatch.Repo.Migrations.UpdateRoutesSimplifyNames do
     rename table("gtfs_routes"), :route_url, to: :url
     rename table("gtfs_routes"), :route_color, to: :designated_color
     rename table("gtfs_routes"), :route_text_color, to: :designated_text_color
+
+    alter table("gtfs_routes"), do: modify(:gtfs_route_id, :string)
   end
 end
