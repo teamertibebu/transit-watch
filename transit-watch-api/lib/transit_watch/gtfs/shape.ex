@@ -21,7 +21,7 @@ defmodule TransitWatch.GTFS.Shape do
   alias TransitWatch.GTFS.Trip
 
   schema "gtfs_shapes" do
-    field :gtfs_shape_id, :integer
+    field :gtfs_shape_id, :string
 
     belongs_to :gtfs_feed_version, FeedVersion
 

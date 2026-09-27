@@ -6,7 +6,6 @@ defmodule TransitWatch.GTFS do
   alias TransitWatch.GTFS.Agency
   alias TransitWatch.GTFS.LocationType
   alias TransitWatch.GTFS.Route
-  alias TransitWatch.GTFS.Shape
   alias TransitWatch.GTFS.ShapePoint
   alias TransitWatch.GTFS.Stop
   alias TransitWatch.GTFS.TransportMode
@@ -32,7 +31,7 @@ defmodule TransitWatch.GTFS do
 
   ## Shapes
 
-  def insert_all_shapes(attrs, opts \\ []), do: Repo.insert_all(Shape, attrs, opts)
+  def insert_all_shapes(attrs, opts \\ []), do: Repo.insert_all("gtfs_shapes", attrs, opts)
 
   ## Shape Points
 
