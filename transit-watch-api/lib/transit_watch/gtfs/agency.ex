@@ -23,7 +23,7 @@ defmodule TransitWatch.GTFS.Agency do
 
     has_many :routes, Route
 
-    many_to_many :feed_versions, FeedVersion, join_through: "gtfs_feed_versions_agencies"
+    many_to_many :feed_versions, FeedVersion, join_through: "gtfs_agency_feed_versions"
 
     timestamps(type: :utc_datetime_usec)
   end

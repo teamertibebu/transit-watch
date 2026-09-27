@@ -19,7 +19,7 @@ defmodule TransitWatch.GTFS.FeedVersion do
       default: :pending
 
     many_to_many :agencies, TransitWatch.GTFS.Agency,
-      join_through: "gtfs_feed_versions_agencies",
+      join_through: "gtfs_agency_feed_versions",
       join_keys: [
         gtfs_feed_version_id: :id,
         gtfs_agency_id: :id
