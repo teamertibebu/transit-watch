@@ -33,6 +33,6 @@ defmodule TransitWatch.GTFS.Shape do
     route
     |> cast(attrs, [:gtfs_shape_id])
     |> validate_required([:gtfs_shape_id])
-    |> unique_constraint([:gtfs_shape_id])
+    |> unique_constraint([:gtfs_shape_id, :gtfs_feed_version_id])
   end
 end
