@@ -18,7 +18,12 @@ defmodule TransitWatch.GTFS.FeedVersion do
       values: [:pending, :importing, :active, :archived],
       default: :pending
 
-    many_to_many :agencies, TransitWatch.GTFS.Agency, join_through: "gtfs_feed_versions_agencies"
+    many_to_many :agencies, TransitWatch.GTFS.Agency,
+      join_through: "gtfs_feed_versions_agencies",
+      join_keys: [
+        gtfs_feed_version_id: :id,
+        gtfs_agency_id: :id
+      ]
 
     timestamps(type: :utc_datetime_usec)
   end
