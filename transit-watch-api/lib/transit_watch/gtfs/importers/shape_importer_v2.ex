@@ -1,27 +1,43 @@
 defmodule TransitWatch.GTFS.Importers.ShapeImporterV2 do
-  @moduledoc """
+  @moduledoc false
 
-  """
-
+  alias Ecto.MultipleResultsError
   alias TransitWatch.GTFS
+  alias TransitWatch.GTFS.Agency
+  alias TransitWatch.GTFS.FeedVersion
 
-  ## TODO: Be sure to incorporate feed_version logic
+  def import(file_path, %Agency{id: agency_id, gtfs_agency_id: gtfs_agency_id}) do
+    try do
+      case GTFS.get_active_feed_version_for_agency(agency_id) do
+        nil ->
+          {:error,
+           "Agency: #{gtfs_agency_id} has no current feed version. Fix before proceeding."}
 
-  def import(file_path) do
-    file_path
-    |> File.stream!()
-    |> CSV.decode!(headers: true)
-    |> Enum.reduce({MapSet.new(), []}, fn row, {shape_ids, shape_point_attrs} ->
-      shape = %{gtfs_shape_id: Map.get(row, "shape_id")}
-      unique_shapes = MapSet.put(shape_ids, shape)
+        %FeedVersion{id: feed_version_id} ->
+          file_path
+          |> File.stream!()
+          |> CSV.decode!(headers: true)
+          |> Enum.reduce({MapSet.new(), []}, fn row, {shape_ids, shape_point_attrs} ->
+            shape = %{
+              gtfs_shape_id: Map.get(row, "shape_id"),
+              gtfs_feed_version_id: feed_version_id
+            }
 
-      shape_point_attrs = [to_shape_point_attr(row) | shape_point_attrs]
+            unique_shapes = MapSet.put(shape_ids, shape)
 
-      {unique_shapes, shape_point_attrs}
-    end)
-    |> to_shape_point_stream
-    |> Stream.chunk_every(5000)
-    |> Enum.each(&GTFS.insert_all_shape_points/1)
+            shape_point_attrs = [to_shape_point_attr(row) | shape_point_attrs]
+
+            {unique_shapes, shape_point_attrs}
+          end)
+          |> to_shape_point_stream
+          |> Stream.chunk_every(5000)
+          |> Enum.each(&GTFS.insert_all_shape_points/1)
+      end
+    rescue
+      MultipleResultsError ->
+        {:error,
+         "Agency: #{gtfs_agency_id} has more than one active feed version. Fix before proceeding."}
+    end
   end
 
   defp to_shape_point_attr(row) do

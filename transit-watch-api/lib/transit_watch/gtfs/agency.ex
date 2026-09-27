@@ -41,4 +41,7 @@ defmodule TransitWatch.GTFS.Agency do
   def filter(query, :gtfs_agency_id, gtfs_agency_id) do
     where(query, gtfs_agency_id: ^gtfs_agency_id)
   end
+
+  def filter(query, :id, nil), do: query
+  def filter(query, :id, id), do: where(query, id: ^id)
 end

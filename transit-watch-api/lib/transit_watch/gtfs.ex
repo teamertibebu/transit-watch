@@ -3,7 +3,10 @@ defmodule TransitWatch.GTFS do
   CRUD functions for GTFS feed tables.
   """
 
+  import Ecto.Query
+
   alias TransitWatch.GTFS.Agency
+  alias TransitWatch.GTFS.FeedVersion
   alias TransitWatch.GTFS.LocationType
   alias TransitWatch.GTFS.Route
   alias TransitWatch.GTFS.ShapePoint
@@ -11,7 +14,25 @@ defmodule TransitWatch.GTFS do
   alias TransitWatch.GTFS.TransportMode
   alias TransitWatch.Repo
 
+  ## Feed Versions
+
+  def get_active_feed_version_for_agency(agency_id) do
+    FeedVersion
+    |> join(:inner, [fv], a in assoc(fv, :agencies))
+    |> where([fv, a], a.id == ^agency_id)
+    |> where([fv], fv.status == :active)
+    |> Repo.one()
+  end
+
   ## Agencies
+
+  def get_agency_by(opts \\ []) do
+    id = Keyword.get(opts, :id)
+
+    Agency
+    |> Agency.filter(:id, id)
+    |> Repo.one()
+  end
 
   def insert_all_agencies(attrs, opts \\ []), do: Repo.insert_all(Agency, attrs, opts)
 
