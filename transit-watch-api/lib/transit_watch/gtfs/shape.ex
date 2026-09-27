@@ -31,8 +31,9 @@ defmodule TransitWatch.GTFS.Shape do
 
   def changeset(route, attrs) do
     route
-    |> cast(attrs, [:gtfs_shape_id])
-    |> validate_required([:gtfs_shape_id])
+    |> cast(attrs, [:gtfs_shape_id, :gtfs_feed_version_id])
+    |> validate_required([:gtfs_shape_id, :gtfs_feed_version_id])
     |> unique_constraint([:gtfs_shape_id, :gtfs_feed_version_id])
+    |> foreign_key_constraint(:gtfs_feed_version_id)
   end
 end
