@@ -1,0 +1,11 @@
+alias TransitWatch.GTFS
+alias TransitWatch.GTFS.Agency
+alias TransitWatch.GTFS.FeedVersion
+alias TransitWatch.GTFS.LocationType
+alias TransitWatch.GTFS.Route
+alias TransitWatch.GTFS.Shape
+alias TransitWatch.GTFS.ShapePoint
+alias TransitWatch.GTFS.Stop
+alias TransitWatch.GTFS.TransportMode
+alias TransitWatch.GTFS.Trip
+alias TransitWatch.Repo
