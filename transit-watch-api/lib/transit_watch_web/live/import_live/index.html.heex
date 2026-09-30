@@ -1,0 +1,24 @@
+<form id="upload-form" phx-change="validate" phx-submit="upload">
+  <.live_file_input upload={@uploads.gtfs_feed} />
+  <button type="submit">Upload</button>
+</form>
+
+<section phx-drop-target={@uploads.gtfs_feed.ref}>
+  <article :for={entry <- @uploads.gtfs_feed.entries} class="upload-entry">
+    <figure>
+      <figcaption>{entry.client_name}</figcaption>
+    </figure>
+
+    <progress value={entry.progress} max="100">{entry.progress}% </progress>
+
+    <button type="button" phx-click="cancel-upload" phx-value-ref={entry.ref} aria-label="cancel">&times;</button>
+
+    <p :for={err <- upload_errors(@uploads.gtfs_feed, entry)} class="alert alert-danger">
+      {upload_error_to_string(err)}
+    </p>
+  </article>
+
+  <p :for={err <- upload_errors(@uploads.gtfs_feed)} class="alert alert-danger">
+    {upload_error_to_string(err)}
+  </p>
+</section>
