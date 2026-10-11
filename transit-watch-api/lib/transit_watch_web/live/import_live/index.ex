@@ -2,6 +2,8 @@
 defmodule TransitWatchWeb.ImportLive.Index do
   use TransitWatchWeb, :live_view
 
+  alias TransitWatch.GTFS
+
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     {:ok,
@@ -47,7 +49,17 @@ defmodule TransitWatchWeb.ImportLive.Index do
          }}
       end)
 
-    {:noreply, assign(socket, :uploaded_feed, uploaded_feed)}
+    case GTFS.start_import(uploaded_feed.archive_path) do
+      {:ok, feed_version} ->
+        {:noreply,
+         socket
+         |> assign(:uploaded_feed, uploaded_feed)
+         |> assign(:feed_version, feed_version)
+         |> put_flash(:info, "GTFS import started.")}
+
+      {:error, reason} ->
+        {:noreply, put_flash(socket, :error, "Error: #{reason}")}
+    end
   end
 
   defp upload_error_to_string(:too_large),
