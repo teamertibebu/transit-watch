@@ -1,13 +1,23 @@
 defmodule TransitWatch.FileRequirements do
   @moduledoc """
-    Defines the different file requirements for conditional required and conditionally forbidden files.
+  Checks conditional file-presence requirements for GTFS feeds.
+
+  Comments above individual `verify/2` clauses describe the applicable
+  conditionally required or conditionally forbidden file rules.
   """
 
   # TODO: Need tests
+
+  @doc """
+  Verifies that file requirements are met for each conditionally required and conditionally forbidden file type according to GTFS standards
+  """
+  def verify(extraction_dir, file_name)
+
+  ## Conditionally Required - required unless all dates of service are defined in calendar_dates.txt, optional otherwise.
   def verify(extraction_dir, "calendar.txt" = file_name) do
     calendar_present? =
       extraction_dir
-      |> Path.join("calendar.txt.")
+      |> Path.join("calendar.txt")
       |> File.regular?()
 
     calendar_dates_present? =
@@ -29,10 +39,11 @@ defmodule TransitWatch.FileRequirements do
     end
   end
 
+  ## Conditionally Required - required if 'calendar.txt' is omitted. In which case 'calendar_dates.txt' must contain all dates of service, optional otherwise.
   def verify(extraction_dir, "calendar_dates.txt" = file_name) do
     calendar_present? =
       extraction_dir
-      |> Path.join("calendar.txt.")
+      |> Path.join("calendar.txt")
       |> File.regular?()
 
     calendar_dates_present? =
@@ -54,10 +65,11 @@ defmodule TransitWatch.FileRequirements do
     end
   end
 
+  ## Conditionally Required - optional if demand-responsive zones are defined in locations.geojson, required otherwise.
   def verify(extraction_dir, "stops.txt" = file_name) do
     locations_geojson_present? =
       extraction_dir
-      |> Path.join("locations.geojson.")
+      |> Path.join("locations.geojson")
       |> File.regular?()
 
     stops_present? =
@@ -82,6 +94,7 @@ defmodule TransitWatch.FileRequirements do
     end
   end
 
+  ## Conditionally Required - required if translations.txt is provided, recommended otherwise.
   def verify(extraction_dir, "feed_info.txt" = file_name) do
     ## The GTFS spec notes that 'feed_info.txt' is required when 'translations.txt' is present.
     translations_present? =
@@ -105,9 +118,12 @@ defmodule TransitWatch.FileRequirements do
     end
   end
 
+  ## Conditionally Required - required when describing pathways with elevators (pathway_mode=5), optional otherwise.
   def verify(extraction_dir, "levels.txt" = file_name) do
     pathways_path = Path.join(extraction_dir, "pathways.txt")
+    levels_path = Path.join(extraction_dir, "levels.txt")
     pathways_present? = File.regular?(pathways_path)
+    levels_present? = File.regular?(levels_path)
 
     if pathways_present? do
       elevator_present? =
@@ -116,18 +132,21 @@ defmodule TransitWatch.FileRequirements do
         |> CSV.decode!(headers: true)
         |> Enum.any?(&(&1["pathway_mode"] == "5"))
 
-      if elevator_present? do
-        {:invalid,
-         {file_name,
-          "'#{file_name}' is required because 'pathways.txt' contains an elevator (pathway_mode=5), but it was not provided."}}
-      else
-        :valid
+      cond do
+        elevator_present? and not levels_present? ->
+          {:invalid,
+           {file_name,
+            "'#{file_name}' is required because 'pathways.txt' is present and contains an elevator (pathway_mode=5), but it was not provided."}}
+
+        true ->
+          :valid
       end
     else
       :valid
     end
   end
 
+  ## Conditionally Forbidden - forbidden if network_id exists in routes.txt, optional otherwise. (*note applies to both files)
   def verify(extraction_dir, file_name)
       when file_name in ["route_networks.txt", "networks.txt"] do
     file_headers =
